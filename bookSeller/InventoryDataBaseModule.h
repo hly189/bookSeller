@@ -24,7 +24,8 @@ private:
 	// Function to look up book by author
 	BookInfo bookLookUpByAuthor(string author); 
 
-	// Function to look up book by 
+	// Function to look up book by title 
+	BookInfo bookLoopUpByTitle(string titile); 
 
 };
 #endif
