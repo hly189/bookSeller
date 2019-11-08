@@ -7,25 +7,40 @@
 
 
 class InventoryDataBaseModule {
-public: 
+private:
 	// Object pointer which will contains all the BookInfo Object
-	BookInfo *bookList; 
-
-private: 
+	BookInfo* bookList; 
+	int bookListSize; 
+public: 
 	InventoryDataBaseModule(); 
-	InventoryDataBaseModule(BookInfo *list);
+	InventoryDataBaseModule(BookInfo list[], int size);
+
+	// Function to get pointer
+	BookInfo * getBookListPointer(); 
+
+	// Function to get Inventory Size
+	int getInventorySize();
 
 	// Function to get all the book Info
 	void getAllBookInfo(); 
 
 	// Function to look up book by ISBN
-	BookInfo bookLookUpByISBN(string isbn); 
+	void bookLookUpByISBN(string isbn); 
 	
 	// Function to look up book by author
-	BookInfo bookLookUpByAuthor(string author); 
+	void bookLookUpByAuthor(string author); 
 
 	// Function to look up book by title 
-	BookInfo bookLoopUpByTitle(string titile); 
+	void bookLoopUpByTitle(string titile); 
+
+	// Function to look up book by publisher
+	void bookLookUpByPublisher(string publiser); 
+
+	// Function to edit book information 
+	void bookEdit(); 
+
+	// Function to add new book
+	void addNewBook(BookInfo newBook); 
 
 };
 #endif

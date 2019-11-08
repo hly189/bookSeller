@@ -3,7 +3,10 @@
 
 #include "pch.h"
 #include "BookInfo.h"
+#include "InventoryDataBaseModule.h"
 #include <iostream>
+#include <iomanip>
+
 int main()
 {
 	BookInfo bookTitile;
@@ -17,11 +20,16 @@ int main()
 	bookTitile.setBookMonth(12);
 	bookTitile.setBookDay(10);
 	bookTitile.setBookYear(1995);
-	bookTitile.getBookInfo();
 
 	BookInfo book2 = BookInfo("15-123", "Harry Potter", "J.K Rowling", "New York", 100, 11.5, 13.5, 12, 12, 2017);
-	
-	book2.getBookInfo();
+	BookInfo book3 = BookInfo("15-1233", "Harry Potter - Order of Phoenix", "J.K Rowling", "New York", 100, 11.5, 13.5, 12, 12, 2017);
+	BookInfo bookList[2] = { bookTitile, book2 }; 
+
+
+	InventoryDataBaseModule inventory = InventoryDataBaseModule(bookList, 2);
+	inventory.addNewBook(book3);
+	inventory.getAllBookInfo(); 
+
 }
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include<string>
 #include<iostream>
+#include <iomanip>
 #include "BookInfo.h"
 #include "Date.h"
 
@@ -142,13 +143,13 @@ void BookInfo::setBookYear(int year) {
 
 // Function to get full info of the book
 void BookInfo::getBookInfo() {
-	cout << "Title: " << getBookTitle() << endl;
-	cout << "ISBN: " << getBookIsbn() << endl;
-	cout << "Author: " << getBookAuthor() << endl;
-	cout << "Publisher: " << getBookPublisher() << endl;
-	cout << "Date: " << getFullDate() << endl;
-	cout << "Quantity: " << getBookQuantity() << endl;
-	cout << "Whole Sale Cost: " << getBookWholeSaleCost() << endl;
-	cout << "Retail Price: " << getBookRetailPrice() << endl; 
-	cout << endl;
+	cout << left << setw(30) << getBookTitle(); 
+	cout << setw(15) << getBookAuthor(); 
+	cout << setw(15) << getBookPublisher();
+	cout << setw(15) << getBookIsbn();
+	cout << setw(15) << getBookQuantity(); 
+	cout << setw(15) << getBookWholeSaleCost(); 
+	cout << setw(10) << getBookRetailPrice(); 
+	cout << setw(35) << getFullDate() << endl;
+
 }
