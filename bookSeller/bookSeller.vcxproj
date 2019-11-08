@@ -156,6 +156,7 @@
     <ClInclude Include="InventoryDataBaseModule.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ReportModule.h" />
+    <ClInclude Include="RunningModule.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BookInfo.cpp" />
@@ -169,6 +170,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ReportModule.cpp" />
+    <ClCompile Include="RunningModule.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

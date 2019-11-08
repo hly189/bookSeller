@@ -143,9 +143,9 @@ void BookInfo::setBookYear(int year) {
 
 // Function to get full info of the book
 void BookInfo::getBookInfo() {
-	cout << left << setw(50) << getBookTitle(); 
+	cout << left << setw(40) << getBookTitle(); 
 	cout << setw(15) << getBookAuthor(); 
-	cout << setw(15) << getBookPublisher();
+	cout << setw(25) << getBookPublisher();
 	cout << setw(15) << getBookIsbn();
 	cout << setw(15) << getBookQuantity(); 
 	cout << setw(15) << getBookWholeSaleCost(); 

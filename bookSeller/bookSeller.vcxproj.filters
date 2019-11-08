@@ -30,6 +30,9 @@
     <ClInclude Include="ReportModule.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="RunningModule.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ReportModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RunningModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

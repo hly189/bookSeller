@@ -37,6 +37,7 @@ int Date::getYear() {
 void Date::setDay(int d) {
 	if (d < 1 || d > 31) {
 		cout << "Date must be from 1 to 31" << endl; 
+		exit(1); 
 	}else {
 		day = d;
 	}
@@ -46,6 +47,7 @@ void Date::setDay(int d) {
 void Date::setMonth(int m) {
 	if (m < 1 || m > 12) {
 		cout << "Month must be from 1 to 12" << endl;
+		exit(1);
 	}else {
 		month = m;
 	}
@@ -53,8 +55,9 @@ void Date::setMonth(int m) {
 
 // set year 
 void Date::setYear(int y) {
-	if (y < 1) {
-		cout << "Year must be greater than 1" << endl;
+	if (y < 1900) {
+		cout << "Year must be greater than 1900" << endl;
+		exit(1);
 	}
 	else {
 		year = y;

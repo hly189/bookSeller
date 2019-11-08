@@ -5,8 +5,11 @@
 #include "BookInfo.h"
 #include "InventoryDataBaseModule.h"
 #include "ReportModule.h"
+#include "RunningModule.h"
 #include <iostream>
 #include <iomanip>
+
+using namespace std; 
 
 int main()
 {
@@ -29,8 +32,10 @@ int main()
 
 	InventoryDataBaseModule inventory = InventoryDataBaseModule(bookList, 2);
 	inventory.addNewBook(book3);
+	RunningModule runningMenu = RunningModule(inventory);
+	runningMenu.mainMenu(); 
 	
-	ReportModule::getAllBookInfo(inventory);
+	//ReportModule::getAllBookInfo(inventory);
 
 }
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
