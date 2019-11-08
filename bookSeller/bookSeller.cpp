@@ -25,7 +25,7 @@ int main()
 	bookTitile.setBookDay(10);
 	bookTitile.setBookYear(1995);
 
-	BookInfo book2 = BookInfo("15-123", "Harry Potter", "J.K Rowling", "New York", 100, 11.5, 13.5, 12, 12, 2017);
+	BookInfo book2 = BookInfo("15-123", "Harry Potter - Philosophy Stone", "J.K Rowling", "New York", 100, 11.5, 13.5, 12, 12, 2017);
 	BookInfo book3 = BookInfo("15-1233", "Harry Potter - Order of Phoenix", "J.K Rowling", "New York", 100, 11.5, 13.5, 12, 12, 2017);
 	BookInfo bookList[2] = { bookTitile, book2 }; 
 

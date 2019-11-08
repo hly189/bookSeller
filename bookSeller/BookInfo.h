@@ -89,6 +89,8 @@ public:
 
 	// set year of the book which adds to inventory
 	void setBookYear(int bookYear); 
+
+	void showBookField(); 
 };
 
 

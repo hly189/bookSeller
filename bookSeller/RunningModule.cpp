@@ -45,25 +45,57 @@ void RunningModule::inventoryMenu() {
 		cout << "2. Delete Book." << endl;
 		cout << "3. Look up book by Title." << endl;
 		cout << "4. Look up book by ISBN Number." << endl;
-		cout << "4. Look up book(s) by Author." << endl;
-		cout << "5. Look up book(s) by Publisher." << endl;
-		cout << "6. Look up book(s) by Day Added." << endl;
-		cout << "7. Look up book(s) by Month Added." << endl;
-		cout << "8. Look up book(s) by Year Added." << endl;
-		cout << "9. Exit Inventory" << endl; 
-		cout << "Please choose option 1 - 9: ";
+		cout << "5. Look up book(s) by Author." << endl;
+		cout << "6. Look up book(s) by Publisher." << endl;
+		cout << "7. Look up book(s) by Day Added." << endl;
+		cout << "8. Look up book(s) by Month Added." << endl;
+		cout << "9. Look up book(s) by Year Added." << endl;
+		cout << "10. Exit Inventory" << endl; 
+		cout << "Please choose option 1 - 10: ";
 		cin >> option;
 		cout << endl; 
-		option = correctingOption(option, 1, 9);
+		option = correctingOption(option, 1, 10);
 		cin.ignore(); 
 
 		if (option == 1){
+			// Gathering information of new book by calling addingBook() 
+			// from BookInfo class
 			BookInfo newBook = addingBook();
+			// Adding new book to Inventory by calling addNewBook 
+			// from InventoryDataBaseModule Class
 			inventory.addNewBook(newBook);
+			// Show current title in inventory and New Book Info
 			cout << "Total Book(s) in Inventory: " << inventory.getInventorySize() << endl;
 			cout << "New Book Info: ";
 			newBook.getBookInfo();
 			cout << endl; 
+		}
+		else if (option == 2) {
+			string removeInfo;
+			cout << "Please enter ISBN Number or Titile of the Book: ";
+			getline(cin, removeInfo);
+			inventory.removeBook(removeInfo);
+		}
+		else if (option == 3) {
+			string title;
+			cout << "Please enter Title of the Book: ";
+			getline(cin, title);
+			inventory.showLookUpByTitle(title);
+			cout << endl;
+		}
+		else if (option == 4) {
+			string isbn; 
+			cout << "Please enter ISBN Number of the Book: "; 
+			getline(cin, isbn); 
+			inventory.showLookUpByISBN(isbn); 
+			cout << endl;
+		}
+		else if (option == 5) {
+			string author;
+			cout << "Please enter Author's Name: ";
+			getline(cin, author);
+			inventory.bookLookUpByAuthor(author);
+			cout << endl;
 		}
 	} while (option != 9);
 }
