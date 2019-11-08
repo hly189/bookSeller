@@ -4,6 +4,7 @@
 #include "pch.h"
 #include "BookInfo.h"
 #include "InventoryDataBaseModule.h"
+#include "ReportModule.h"
 #include <iostream>
 #include <iomanip>
 
@@ -28,7 +29,8 @@ int main()
 
 	InventoryDataBaseModule inventory = InventoryDataBaseModule(bookList, 2);
 	inventory.addNewBook(book3);
-	inventory.getAllBookInfo(); 
+	
+	ReportModule::getAllBookInfo(inventory);
 
 }
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

@@ -27,16 +27,6 @@ int InventoryDataBaseModule::getInventorySize() {
 	return bookListSize; 
 }
 
-// Function to show all the book info: 
-void InventoryDataBaseModule::getAllBookInfo() {
-
-	// Loop through the bookList and get infomation of each book by calling 
-	// method getBookInfo() in BookInfo class
-	for (int i = 0; i < bookListSize; i++) {
-		bookList[i].getBookInfo(); 
-	}
-}
-
 // Function to add new Book to Inventory
 void InventoryDataBaseModule::addNewBook(BookInfo newbook) {
 	// get the current size of inventory

@@ -21,20 +21,17 @@ public:
 	// Function to get Inventory Size
 	int getInventorySize();
 
-	// Function to get all the book Info
-	void getAllBookInfo(); 
-
 	// Function to look up book by ISBN
-	void bookLookUpByISBN(string isbn); 
+	int bookLookUpByISBN(string isbn); 
 	
 	// Function to look up book by author
-	void bookLookUpByAuthor(string author); 
+	int bookLookUpByAuthor(string author); 
 
 	// Function to look up book by title 
-	void bookLoopUpByTitle(string titile); 
+	int bookLoopUpByTitle(string titile); 
 
 	// Function to look up book by publisher
-	void bookLookUpByPublisher(string publiser); 
+	int bookLookUpByPublisher(string publiser); 
 
 	// Function to edit book information 
 	void bookEdit(); 

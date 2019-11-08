@@ -27,6 +27,9 @@
     <ClInclude Include="InventoryDataBaseModule.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="ReportModule.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InventoryDataBaseModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
