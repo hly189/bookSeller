@@ -33,7 +33,8 @@ public:
 	// Function to look up book by Date Added or Quantity
 	void bookLoopUpByMonthDayYearQuantity(int lookupInfo, int option);
 
-	//
+	// Function to look up by whole sale cost or retail price
+	void bookLookUpByWholeSaleOrRetailPrice(double priceLookUp, int option);
 
 	// Function to edit book information 
 	void bookEdit(); 

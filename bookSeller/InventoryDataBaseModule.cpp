@@ -4,6 +4,7 @@
 #include "pch.h"
 #include "InventoryDataBaseModule.h"
 #include "BookInfo.h"
+#include "RunningModule.h"
 
 using namespace std; 
 
@@ -168,6 +169,49 @@ void  InventoryDataBaseModule::bookLoopUpByMonthDayYearQuantity(int lookupInfo, 
 	}
 }
 
+// Function to look up book by whole sale cost or retail price
+void InventoryDataBaseModule::bookLookUpByWholeSaleOrRetailPrice(double priceLookUp, int option) {
+	// option 1 look up by whole sale cost
+	// option 2 look up by retail price 
+	
+	// Get inventory Size
+	int currentSize = getInventorySize();
+
+	// Get copy of bookList
+	BookInfo *tempInventory = getBookListPointer(); 
+
+	// Marker for found day 
+	bool marker = false;
+
+	for (int i = 0; i < currentSize; i++) {
+		double currentPiceInfo;
+		if (option == 1) {
+			currentPiceInfo = tempInventory[i].getBookWholeSaleCost();
+		}
+		else {
+			currentPiceInfo = tempInventory[i].getBookRetailPrice();
+		}
+		// If price is found, then show book info
+		// and change marker to true
+		if (currentPiceInfo == priceLookUp) {
+			if (marker == false) {
+				tempInventory[i].showBookField();
+			}
+			tempInventory[i].getBookInfo();
+			marker = true;
+		}
+	}
+
+	// if no price is found, meaning dayMarker is still false
+	// then let user know and exit functino 
+	if (marker == false) {
+		cout << "No Price " << priceLookUp << " found in Inventory" << endl;
+		return;
+	}
+
+
+}
+
 // Function to add new Book to Inventory
 void InventoryDataBaseModule::addNewBook(BookInfo newbook) {
 	// get the current size of inventory
@@ -240,3 +284,139 @@ void InventoryDataBaseModule::removeBook(string removeInfo) {
 
 
 }
+
+// Function to edit book information
+void InventoryDataBaseModule::bookEdit() {
+	string bookInformation; 
+	cout << "Please enter Book Title or ISBN Number: "; 
+	getline(cin, bookInformation);
+
+	// position of book in array 
+	int bookPosition; 
+	
+	// Create copy of Inventory 
+	BookInfo *tempInventory = getBookListPointer(); 
+
+	//Start looking by ISBN first
+	bookPosition = bookLookUpByISBNTitle(bookInformation, 1);
+	// If no ISBN found, then countiue searching by title
+	if (bookPosition < 0) {
+		bookPosition = bookLookUpByISBNTitle(bookInformation, 2);
+		// If no title found, let user know
+		// and exit function. 
+		if (bookPosition < 0) {
+			cout << "No " << bookInformation << " found in Inventory" << endl;
+			return;
+		}
+	}
+	// Show Current Book Information 
+	tempInventory[bookPosition].showBookField();
+	tempInventory[bookPosition].getBookInfo();
+	cout << endl; 
+	// Asking which information user wants to edit
+	string answer; 
+	do {
+			int option; 
+			cout << "Which information do you want to edit" << endl;
+			cout << "1. Title" << endl; 
+			cout << "2. ISBN" << endl; 
+			cout << "3. Author" << endl; 
+			cout << "4. Publisher" << endl; 
+			cout << "5. Quantity" << endl; 
+			cout << "6. WHole Sale Cost" << endl; 
+			cout << "7. Retail Price" << endl; 
+			cout << "8. Day Added" << endl; 
+			cout << "9. Month Added" << endl; 
+			cout << "10. Year Added" << endl; 
+			cout << "11. Exit Change" << endl; 
+			cout << "Please choose from 1 - 11: "; 
+			cin >> option; 
+			cin.ignore(); 
+			option = Utilities::correctingOption(option, 1, 11);
+
+			// Start editing on book information
+			if (option == 1) {
+				string editTitle; 
+				cout << "Please enter new Title: "; 
+				getline(cin, editTitle); 
+				tempInventory[bookPosition].setBookTitle(editTitle); 
+			}
+			else if (option == 2) {
+				string editIsbn; 
+				cout << "Please enter new ISBN: "; 
+				getline(cin, editIsbn); 
+				tempInventory[bookPosition].setBookIsbnNumber(editIsbn); 
+			}
+			else if (option == 3) {
+				string editAuthor; 
+				cout << "Please enter new Author: "; 
+				getline(cin, editAuthor); 
+				tempInventory[bookPosition].setBookAuthor(editAuthor);
+			}
+			else if (option == 4) {
+				string editPublisher;
+				cout << "Please enter new Publisher: ";
+				getline(cin, editPublisher);
+				tempInventory[bookPosition].setBookPublisher(editPublisher);
+			}
+			else if (option == 5) {
+				int editQuantity;
+				cout << "Please enter new Quantity: ";
+				cin >> editQuantity; 
+				cin.ignore(); 
+				tempInventory[bookPosition].setBookQuantity(editQuantity);
+			}
+			else if (option == 6) {
+				double editWholeSaleCost;
+				cout << "Please enter new Whole Sale Cost: ";
+				cin >> editWholeSaleCost;
+				cin.ignore();
+				tempInventory[bookPosition].setWholeSaleCost(editWholeSaleCost);
+			}
+			else if (option == 7) {
+				double editRetailPrice;
+				cout << "Please enter new Retail Price: ";
+				cin >> editRetailPrice;
+				cin.ignore();
+				tempInventory[bookPosition].setBookRetailPrice(editRetailPrice);
+			}
+			else if (option == 8) {
+				int editDay;
+				cout << "Please enter new Day Added: ";
+				cin >> editDay;
+				cin.ignore();
+				tempInventory[bookPosition].setBookDay(editDay);
+			}
+			else if (option == 9) {
+				int editMonth;
+				cout << "Please enter new Month Added: ";
+				cin >> editMonth;
+				cin.ignore();
+				tempInventory[bookPosition].setBookMonth(editMonth);
+			}
+			else if (option == 10) {
+				int editYear;
+				cout << "Please enter new Year Added: ";
+				cin >> editYear;
+				cin.ignore();
+				tempInventory[bookPosition].setBookYear(editYear);
+			}
+			else {
+				break; 
+			}
+			cout << "Current Book Info: " << endl;
+			tempInventory[bookPosition].showBookField();
+			tempInventory[bookPosition].getBookInfo(); 
+			cout << endl; 
+			cout << "Do you want to continue editing ? y/n: "; 
+			getline(cin, answer); 
+		} while (answer != "n");
+	cout << endl; 
+	cout << "New Book Info " << endl; 
+	tempInventory[bookPosition].showBookField();
+	tempInventory[bookPosition].getBookInfo();
+
+		// Copy temp Inventory List after editing to original inventory 
+		bookList = tempInventory; 
+	}
+

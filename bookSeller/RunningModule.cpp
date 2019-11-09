@@ -27,7 +27,7 @@ void RunningModule::mainMenu(){
 		cout << "Please choose option 1 - 4: ";
 		cin >> option;
 		cout << endl; 
-		option = correctingOption(option, 1, 4);
+		option = Utilities::correctingOption(option, 1, 4);
 		if (option == 1) {
 			inventoryMenu();
 		}
@@ -53,11 +53,12 @@ void RunningModule::inventoryMenu() {
 		cout << "10. Look up book(s) by Quantity." << endl;
 		cout << "11. Look up book(s) by Whole Sale Cost." << endl;
 		cout << "12. Look up book(s) by Retail Price." << endl;
-		cout << "13. Exit Inventory" << endl; 
-		cout << "Please choose option 1 - 13: ";
+		cout << "13. Change book information." << endl;
+		cout << "14. Exit Inventory" << endl; 
+		cout << "Please choose option 1 - 14: ";
 		cin >> option;
 		cout << endl; 
-		option = correctingOption(option, 1, 13);
+		option = Utilities::correctingOption(option, 1, 14);
 		cin.ignore(); 
 
 		if (option == 1){
@@ -140,8 +141,28 @@ void RunningModule::inventoryMenu() {
 			inventory.bookLoopUpByMonthDayYearQuantity(quantity, 4);
 			cout << endl;
 		}
-
-	} while (option != 11);
+		else if (option == 11) {
+			double wholesale;
+			cout << "Please enter Whole Sale Cost which has Inventory: ";
+			cin >> wholesale;
+			cin.ignore();
+			inventory.bookLookUpByWholeSaleOrRetailPrice(wholesale, 1);
+			cout << endl;
+		}
+		else if (option == 12) {
+			double retailPrice;
+			cout << "Please enter Retail Price which has Inventory: ";
+			cin >> retailPrice;
+			cin.ignore();
+			inventory.bookLookUpByWholeSaleOrRetailPrice(retailPrice, 2);
+			cout << endl;
+		}
+		else if (option == 13) {
+			cout << endl;
+			inventory.bookEdit();
+			cout << endl;
+		}
+	} while (option != 14);
 }
 //Function to show adding screen and return BookInfo Object for new book 
 BookInfo RunningModule::addingBook() {
@@ -192,7 +213,7 @@ void RunningModule::reportMenu() {
 		cout << "Please choose option 1 - 6: ";
 		cin >> option;
 		cout << endl;
-		option = correctingOption(option, 1, 6);
+		option = Utilities::correctingOption(option, 1, 6);
 		cin.ignore();
 
 		if (option == 1) {
@@ -201,7 +222,7 @@ void RunningModule::reportMenu() {
 	} while (option != 6); 
 }
 // Make user choose correct option which are available in menu
-int RunningModule::correctingOption(int inputNumber, int firstNumber, int lastNumber) {
+int Utilities::correctingOption(int inputNumber, int firstNumber, int lastNumber) {
 	while (inputNumber < firstNumber || inputNumber > lastNumber) {
 		cout << "Please input option from " << firstNumber << " to " << lastNumber << endl; 
 		cin >> inputNumber; 
