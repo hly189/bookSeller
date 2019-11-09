@@ -50,11 +50,14 @@ void RunningModule::inventoryMenu() {
 		cout << "7. Look up book(s) by Day Added." << endl;
 		cout << "8. Look up book(s) by Month Added." << endl;
 		cout << "9. Look up book(s) by Year Added." << endl;
-		cout << "10. Exit Inventory" << endl; 
-		cout << "Please choose option 1 - 10: ";
+		cout << "10. Look up book(s) by Quantity." << endl;
+		cout << "11. Look up book(s) by Whole Sale Cost." << endl;
+		cout << "12. Look up book(s) by Retail Price." << endl;
+		cout << "13. Exit Inventory" << endl; 
+		cout << "Please choose option 1 - 13: ";
 		cin >> option;
 		cout << endl; 
-		option = correctingOption(option, 1, 10);
+		option = correctingOption(option, 1, 13);
 		cin.ignore(); 
 
 		if (option == 1){
@@ -66,7 +69,8 @@ void RunningModule::inventoryMenu() {
 			inventory.addNewBook(newBook);
 			// Show current title in inventory and New Book Info
 			cout << "Total Book(s) in Inventory: " << inventory.getInventorySize() << endl;
-			cout << "New Book Info: ";
+			cout << "New Book Info: " << endl; 
+			newBook.showBookField(); 
 			newBook.getBookInfo();
 			cout << endl; 
 		}
@@ -80,24 +84,64 @@ void RunningModule::inventoryMenu() {
 			string title;
 			cout << "Please enter Title of the Book: ";
 			getline(cin, title);
-			inventory.showLookUpByTitle(title);
+			inventory.showLookUpByISBNTitle(title,2);
 			cout << endl;
 		}
 		else if (option == 4) {
 			string isbn; 
 			cout << "Please enter ISBN Number of the Book: "; 
 			getline(cin, isbn); 
-			inventory.showLookUpByISBN(isbn); 
+			inventory.showLookUpByISBNTitle(isbn,1);
 			cout << endl;
 		}
 		else if (option == 5) {
 			string author;
 			cout << "Please enter Author's Name: ";
 			getline(cin, author);
-			inventory.bookLookUpByAuthor(author);
+			inventory.bookLookUpByPublisherOrAuthor(author,2);
 			cout << endl;
 		}
-	} while (option != 9);
+		else if (option == 6) {
+			string publisher;
+			cout << "Please enter Publisher's Name: ";
+			getline(cin, publisher);
+			inventory.bookLookUpByPublisherOrAuthor(publisher, 1);
+			cout << endl;
+		}
+		else if (option == 7) {
+			int day;
+			cout << "Please enter Day Added to Inventory: ";
+			cin >> day; 
+			cin.ignore(); 
+			inventory.bookLoopUpByMonthDayYearQuantity(day,1);
+			cout << endl;
+		}
+		else if (option == 8) {
+			int month;
+			cout << "Please enter Month Added to Inventory: ";
+			cin >> month;
+			cin.ignore();
+			inventory.bookLoopUpByMonthDayYearQuantity(month,2);
+			cout << endl;
+		}
+		else if (option == 9) {
+			int year;
+			cout << "Please enter Month Added to Inventory: ";
+			cin >> year;
+			cin.ignore();
+			inventory.bookLoopUpByMonthDayYearQuantity(year, 3);
+			cout << endl;
+		}
+		else if (option == 10) {
+			int quantity;
+			cout << "Please enter Quanity which has Inventory: ";
+			cin >> quantity;
+			cin.ignore();
+			inventory.bookLoopUpByMonthDayYearQuantity(quantity, 4);
+			cout << endl;
+		}
+
+	} while (option != 11);
 }
 //Function to show adding screen and return BookInfo Object for new book 
 BookInfo RunningModule::addingBook() {

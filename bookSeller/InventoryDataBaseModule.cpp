@@ -27,101 +27,144 @@ int InventoryDataBaseModule::getInventorySize() {
 	return bookListSize; 
 }
 
-// Function to look up book by ISBN 
-int InventoryDataBaseModule::bookLookUpByISBN(string isbn) {
+
+// Function to look up position of book in array by ISBN Number or Title
+int InventoryDataBaseModule::bookLookUpByISBNTitle(string lookUpInfo, int option) {
+	// option 1 is looking by ISBN
+	// option 2 is looking by title 
+
 	// position of element which is founded. Default is -1 meaning there is no book 
-	// with given  isbn number
+	// with given  information
 	int foundPosition = -1; 
 
+	// get size of current Inventory 
+	int currentSize = getInventorySize(); 
+
+	// get copy of BookList Array 
+	BookInfo* tempInventoryArray = getBookListPointer(); 
+
 	// Loop through the list to look for book with given isbn
-	for (int i = 0; i < bookListSize; i++) {
-		string currentISBN = bookList[i].getBookIsbn(); 
-		if (currentISBN == isbn) {
-			foundPosition = i; 
-			break; 
+	for (int i = 0; i < currentSize; i++) {
+		string currenInfo;
+		if (option == 1) {
+			currenInfo = tempInventoryArray[i].getBookIsbn(); 
+		}else {
+			currenInfo = tempInventoryArray[i].getBookTitle();
 		}
-	}
-	return foundPosition; 
-}
-
-// Function to show loop up result by ISBN
-void InventoryDataBaseModule::showLookUpByISBN(string isbn) {
-
-	// Search position of the book in array bookList by 
-	// calling bookLookUpByISBN function
-	int bookPosition = bookLookUpByISBN(isbn); 
-
-	// If no found then return and let user knows
-	if (bookPosition < 0) {
-		cout << "No Book with ISBN " << isbn << " found." << endl; 
-		return; 
-	}
-
-	// Otherwise show search result
-	bookList[bookPosition].getBookInfo(); 
-}
-
-
-// Function to look up book by title 
-int InventoryDataBaseModule::bookLoopUpByTitle(string title) {
-	// position of element which is founded. Default is -1 meaning there is no book 
-	// with given  title
-	int foundPosition = -1;
-
-	// Loop through the list to look for book with given title
-	for (int i = 0; i < bookListSize; i++) {
-		string currentTitle = bookList[i].getBookTitle();
-		if (currentTitle == title) {
-			foundPosition = i;
+		if (currenInfo == lookUpInfo) {
+			foundPosition = i; 
 			break;
 		}
 	}
 	return foundPosition;
+
 }
 
-// Function to show look up result by title
-void InventoryDataBaseModule::showLookUpByTitle(string title) {
-	// Search position of the book in array bookList by 
-	// calling bookLoopUpByTitle function
-	int bookPosition = bookLoopUpByTitle(title); 
 
-	// If no found the exit function and let user knows 
+// Function to show loop up result by ISBN or Title
+void InventoryDataBaseModule::showLookUpByISBNTitle(string lookUpInfo, int option) {
+
+	// Search position of the book in array bookList by 
+	// calling bookLookUpByISBNTitle function
+	int bookPosition = bookLookUpByISBNTitle(lookUpInfo, option);
+
+	// If no found then return and let user knows
 	if (bookPosition < 0) {
-		cout << "No Book with title " << title << " found." << endl;
-		return;
+		cout << "No Book with Information " << lookUpInfo << " found." << endl; 
+		return; 
 	}
 
 	// Otherwise show search result
+	bookList[bookPosition].showBookField();
 	bookList[bookPosition].getBookInfo(); 
 }
 
-// Function to look up book by author
-void InventoryDataBaseModule::bookLookUpByAuthor(string author) {
+
+// Function to look up book by author or publisher
+void InventoryDataBaseModule::bookLookUpByPublisherOrAuthor(string lookUpInfo, int option) {
+	//option 1 is looking up by publisher
+	//option 2 is look up by author
+	
 	// Get inventory Size
 	int currentSize = getInventorySize(); 
 
+	// Get copy of Inventory 
+	BookInfo* tempInventoryArray = getBookListPointer();
+
 	// Marker for found author 
-	bool authorMarker = false; 
+	bool marker = false; 
 	// Loop through Inventory to look for book(s)
 	// with given author
 	for (int i = 0; i < currentSize; i++) {
-		string currentAuthor = bookList[i].getBookAuthor(); 
+		string currentInfo; 
+		if (option == 1) {
+			currentInfo = tempInventoryArray[i].getBookPublisher();
+		}else {
+			currentInfo = tempInventoryArray[i].getBookAuthor();
+		}
 		// If author is found, then show book info
 		// and change marker to true
-		if (currentAuthor == author) {
-			if (authorMarker == false) {
-				bookList[i].showBookField();
+		if (currentInfo == lookUpInfo) {
+			if (marker == false) {
+				tempInventoryArray[i].showBookField();
 			}
-			bookList[i].getBookInfo(); 
-			authorMarker = true; 
+			tempInventoryArray[i].getBookInfo();
+			marker = true;
 		}
 	}
 
-	// if no author is found, meaning authorMarker is still false
+	// if no author or publisher is found, meaning marker is still false
 	// then let user know and exit functino 
-	if (authorMarker == false) {
-		cout << "No " << author << " found in Inventory" << endl; 
+	if (marker == false) {
+		cout << "No " << lookUpInfo << " found in Inventory" << endl;
 		return; 
+	}
+}
+
+
+// Function to look up book information by day, month, year or quantity
+void  InventoryDataBaseModule::bookLoopUpByMonthDayYearQuantity(int lookupInfo, int option) {
+	// Get inventory Size
+	int currentSize = getInventorySize();
+
+	// Marker for found day 
+	bool marker = false;
+	// Loop through Inventory to look for book(s)
+	// with given day, month or year
+	// option 1 is searching by day
+	// option 2 is searching by month 
+	// option 3 is searching by year
+	// option 4 is searching by quantity
+	for (int i = 0; i < currentSize; i++) {
+		int currentDateInfo; 
+		if (option == 1) {
+			currentDateInfo = bookList[i].getBookDay(); 
+		}
+		else if (option == 2) {
+			currentDateInfo = bookList[i].getBookMonth(); 
+		}
+		else if (option == 3) {
+			currentDateInfo = bookList[i].getBookYear();
+		}
+		else {
+			currentDateInfo = bookList[i].getBookQuantity();
+		}
+		// If day is found, then show book info
+		// and change marker to true
+		if (currentDateInfo == lookupInfo) {
+			if (marker == false) {
+				bookList[i].showBookField();
+			}
+			bookList[i].getBookInfo();
+			marker = true;
+		}
+	}
+
+	// if no day is found, meaning dayMarker is still false
+	// then let user know and exit functino 
+	if (marker == false) {
+		cout << "No " << lookupInfo << " found in Inventory" << endl;
+		return;
 	}
 }
 
@@ -178,10 +221,10 @@ void InventoryDataBaseModule::removeBook(string removeInfo) {
 
 	// Start searching on given input information
 	// Start looking by ISBN first
-	removePosition = bookLookUpByISBN(removeInfo); 
+	removePosition = bookLookUpByISBNTitle(removeInfo,1);
 	if (removePosition < 0) {
 		// Continue looking by Title if ISBN not found
-		removePosition = bookLoopUpByTitle(removeInfo); 
+		removePosition = bookLookUpByISBNTitle(removeInfo,2);
 		// If not found then exit function 
 		if (removePosition < 0) {
 			cout << "No " << removeInfo << " is found" << endl;
