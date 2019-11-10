@@ -3,10 +3,12 @@
 
 #include<string>
 #include<iostream>
+#include<fstream>
 #include "BookInfo.h"
 #include "InventoryDataBaseModule.h"
 
 namespace Utilities {
+	// Function to Correct opttion for user
 	int correctingOption(int inputNumber, int firstOptionNumber, int lastOptionNumber);
 }
 
@@ -26,9 +28,7 @@ public:
 	void cashierMenu();
 	// Function for adding book screen and return BookInfo object for new Book 
 	BookInfo addingBook(); 
-	// Function to Correct opttion for user
 };
-
 
 
 #endif

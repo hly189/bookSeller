@@ -1,10 +1,16 @@
-#include<string>
-#include<iostream>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
 #include "pch.h"
 #include "RunningModule.h"
 #include "InventoryDataBaseModule.h"
 #include "BookInfo.h"
 #include "ReportModule.h"
+
+using namespace std;
+
 
 // Default constructor
 RunningModule::RunningModule() {}

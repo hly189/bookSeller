@@ -22,8 +22,11 @@ public:
 	BookInfo(); 
 	BookInfo(string isbn, string title, string author, string publisher, int quantity, double wholeSaleCost, double retailPrice, int day, int month, int year);
 
+	// Destructor 
+	~BookInfo();
 	//Functions to get book info
 	// get book ISBN number: 
+
 	string getBookIsbn(); 
 
 	// get book titile

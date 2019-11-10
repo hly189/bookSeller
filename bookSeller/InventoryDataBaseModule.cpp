@@ -232,6 +232,7 @@ void InventoryDataBaseModule::addNewBook(BookInfo newbook) {
 
 	// Copy from new temp array to origial list
 	bookList = newTempInventoryList; 
+
 }
 
 // Function to delete book object by position
@@ -257,6 +258,7 @@ void InventoryDataBaseModule::deleteBookObjectFromInventory(int position) {
 
 	// Copy from new temp array to original list 
 	bookList = newTempInvetoryList; 
+
 }
 
 // Function to show remove Screen and remove book
@@ -418,5 +420,8 @@ void InventoryDataBaseModule::bookEdit() {
 
 		// Copy temp Inventory List after editing to original inventory 
 		bookList = tempInventory; 
+
+		// Free memory since temp array is no longer used 
+		//delete[] tempInventory; 
 	}
 

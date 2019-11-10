@@ -29,6 +29,7 @@ BookInfo::BookInfo(string isbn, string title, string author, string publisher, i
 	bookDate = Date(day, month, year); 
 }
 
+BookInfo::~BookInfo() {}
 // Function to get ISBN Number the book
 string BookInfo::getBookIsbn() {
 	return bookIsbn; 
@@ -143,10 +144,10 @@ void BookInfo::setBookYear(int year) {
 
 // Function to get full info of the book
 void BookInfo::getBookInfo() {
-	cout << left << setw(40) << getBookTitle(); 
-	cout << setw(15) << getBookAuthor(); 
+	cout << left << setw(60) << getBookTitle(); 
+	cout << setw(25) << getBookAuthor(); 
 	cout << setw(25) << getBookPublisher();
-	cout << setw(15) << getBookIsbn();
+	cout << setw(25) << getBookIsbn();
 	cout << setw(15) << getBookQuantity(); 
 	cout << setw(15) << getBookWholeSaleCost(); 
 	cout << setw(20) << getBookRetailPrice(); 
@@ -154,10 +155,10 @@ void BookInfo::getBookInfo() {
 }
 
 void BookInfo::showBookField() {
-	cout << left << setw(40) << "Title";
-	cout << setw(15) << "Author";
+	cout << left << setw(60) << "Title";
+	cout << setw(25) << "Author";
 	cout << setw(25) << "Publisher";
-	cout << setw(15) << "ISBN Number";
+	cout << setw(25) << "ISBN Number";
 	cout << setw(15) << "Quantity";
 	cout << setw(15) << "Whole Sale";
 	cout << setw(20) << "Retail Price";
