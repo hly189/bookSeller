@@ -20,7 +20,9 @@ InventoryDataBaseModule::InventoryDataBaseModule(BookInfo list[], int size) {
 // Function to return bookList pointer
 BookInfo* InventoryDataBaseModule::getBookListPointer() {
 	// since *bookList is private, this function will return it, so it can be accessible
-	return bookList; 
+	BookInfo* tempBookList = new BookInfo[getInventorySize()]; 
+	tempBookList = bookList;
+	return tempBookList; 
 }
 
 // Function to get size of Inventory
@@ -76,7 +78,7 @@ void InventoryDataBaseModule::showLookUpByISBNTitle(string lookUpInfo, int optio
 	}
 
 	// Otherwise show search result
-	bookList[bookPosition].showBookField();
+	showBookField();
 	bookList[bookPosition].getBookInfo(); 
 }
 
@@ -107,7 +109,7 @@ void InventoryDataBaseModule::bookLookUpByPublisherOrAuthor(string lookUpInfo, i
 		// and change marker to true
 		if (currentInfo == lookUpInfo) {
 			if (marker == false) {
-				tempInventoryArray[i].showBookField();
+				showBookField();
 			}
 			tempInventoryArray[i].getBookInfo();
 			marker = true;
@@ -154,7 +156,7 @@ void  InventoryDataBaseModule::bookLoopUpByMonthDayYearQuantity(int lookupInfo, 
 		// and change marker to true
 		if (currentDateInfo == lookupInfo) {
 			if (marker == false) {
-				bookList[i].showBookField();
+				showBookField();
 			}
 			bookList[i].getBookInfo();
 			marker = true;
@@ -195,7 +197,7 @@ void InventoryDataBaseModule::bookLookUpByWholeSaleOrRetailPrice(double priceLoo
 		// and change marker to true
 		if (currentPiceInfo == priceLookUp) {
 			if (marker == false) {
-				tempInventory[i].showBookField();
+				showBookField();
 			}
 			tempInventory[i].getBookInfo();
 			marker = true;
@@ -312,7 +314,7 @@ void InventoryDataBaseModule::bookEdit() {
 		}
 	}
 	// Show Current Book Information 
-	tempInventory[bookPosition].showBookField();
+	showBookField();
 	tempInventory[bookPosition].getBookInfo();
 	cout << endl; 
 	// Asking which information user wants to edit
@@ -407,7 +409,7 @@ void InventoryDataBaseModule::bookEdit() {
 				break; 
 			}
 			cout << "Current Book Info: " << endl;
-			tempInventory[bookPosition].showBookField();
+			showBookField();
 			tempInventory[bookPosition].getBookInfo(); 
 			cout << endl; 
 			cout << "Do you want to continue editing ? y/n: "; 
@@ -415,7 +417,7 @@ void InventoryDataBaseModule::bookEdit() {
 		} while (answer != "n");
 	cout << endl; 
 	cout << "New Book Info " << endl; 
-	tempInventory[bookPosition].showBookField();
+	showBookField();
 	tempInventory[bookPosition].getBookInfo();
 
 		// Copy temp Inventory List after editing to original inventory 
@@ -424,4 +426,15 @@ void InventoryDataBaseModule::bookEdit() {
 		// Free memory since temp array is no longer used 
 		//delete[] tempInventory; 
 	}
+
+void InventoryDataBaseModule::showBookField() {
+	cout << left << setw(60) << "Title";
+	cout << setw(25) << "Author";
+	cout << setw(25) << "Publisher";
+	cout << setw(25) << "ISBN Number";
+	cout << setw(15) << "Quantity";
+	cout << setw(15) << "Whole Sale";
+	cout << setw(20) << "Retail Price";
+	cout << setw(35) << "Date" << endl;
+}
 

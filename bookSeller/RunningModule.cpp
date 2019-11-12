@@ -42,6 +42,7 @@ void RunningModule::mainMenu(){
 		}
 	} while (option != 4);
 }
+
 // Inventory Menu
 void RunningModule::inventoryMenu() {
 	int option; 
@@ -77,7 +78,7 @@ void RunningModule::inventoryMenu() {
 			// Show current title in inventory and New Book Info
 			cout << "Total Book(s) in Inventory: " << inventory.getInventorySize() << endl;
 			cout << "New Book Info: " << endl; 
-			newBook.showBookField(); 
+			inventory.showBookField(); 
 			newBook.getBookInfo();
 			cout << endl; 
 		}
@@ -170,6 +171,7 @@ void RunningModule::inventoryMenu() {
 		}
 	} while (option != 14);
 }
+
 //Function to show adding screen and return BookInfo Object for new book 
 BookInfo RunningModule::addingBook() {
 	string title, isbn, author, publisher; 
@@ -204,6 +206,7 @@ BookInfo RunningModule::addingBook() {
 	BookInfo newBook = BookInfo(isbn, title, author, publisher, quantity, wholeSaleCost, retailPrice, day, month, year); 
 	return newBook; 
 }
+
 // Function to show Report Menu
 void RunningModule::reportMenu() {
 	int option;
@@ -213,20 +216,41 @@ void RunningModule::reportMenu() {
 		cout << "2. Inventory Wholesale Value." << endl;
 		cout << "3. Inventory Retail Value." << endl;
 		cout << "4. List by Quantity ." << endl;
-		cout << "4. List by Cost." << endl;
-		cout << "5. List by Age." << endl;
-		cout << "6. Exit Report Menu" << endl;
-		cout << "Please choose option 1 - 6: ";
+		cout << "5. List by Cost." << endl;
+		cout << "6. List by Age." << endl;
+		cout << "7. Exit Report Menu" << endl;
+		cout << "Please choose option 1 - 7: ";
 		cin >> option;
 		cout << endl;
-		option = Utilities::correctingOption(option, 1, 6);
+		option = Utilities::correctingOption(option, 1, 7);
 		cin.ignore();
 
 		if (option == 1) {
 			ReportModule::getAllBookInfo(inventory);
 		}
-	} while (option != 6); 
+		else if (option == 2) {
+			// option 1 is get data and show whole sale cost
+			ReportModule::getBookWholeSaleOrRetail(inventory,1);
+		}
+		else if (option == 3) {
+			// option 2 is get data and show retail price
+			ReportModule::getBookWholeSaleOrRetail(inventory, 2);
+		}
+		else if (option == 4){
+			// option 1 is show data by sorting by Quantity
+			ReportModule::showSortResult(inventory, 1);
+		}
+		else if (option == 5) {
+			// option 3 is show data by sorting whole sale cost
+			ReportModule::showSortResult(inventory, 3); 
+		}
+		else if (option == 6) {
+			// option 2 is show data by sorting Purchased Date
+			ReportModule::showSortResult(inventory, 2);
+		}
+	} while (option != 7); 
 }
+
 // Make user choose correct option which are available in menu
 int Utilities::correctingOption(int inputNumber, int firstNumber, int lastNumber) {
 	while (inputNumber < firstNumber || inputNumber > lastNumber) {
@@ -234,4 +258,94 @@ int Utilities::correctingOption(int inputNumber, int firstNumber, int lastNumber
 		cin >> inputNumber; 
 	}
 	return inputNumber; 
+}
+
+// Function to calculate how many line in file
+// Then returning size of inventory which will be used
+int Utilities::getDataFIleSize(string fileName) {
+	ifstream myFile;
+	// Opening File to read data
+	myFile.open(fileName);
+
+	// initialize size variable to counting size of file 
+	int size = 0;
+	string line;
+
+	// open file and calculate couting size of file
+
+	if (myFile.is_open()) {
+		while (!myFile.eof()) {
+			getline(myFile, line);
+			size++;
+		}
+	}
+
+	// close file 
+	myFile.close();
+	return size;
+}
+
+// Function to show book and whole sale cose with total whole sale 
+BookInfo * Utilities::installDataToInventory(string fileName, int fileSize) {
+
+	// Initialzie empty inventory array with size of fileSize
+	BookInfo * inventoryArrayPointer = new BookInfo[fileSize];
+
+	// Open file to read data
+	ifstream myFile;
+	myFile.open(fileName);
+
+	// Continue if file is open 
+	if (myFile.is_open()) {
+		string line, word;
+
+		// initial count to for putting book info 
+		// to approriate slot of inventory array 
+		int count = 0;
+
+		// Loop through the end of the file 
+		while (getline(myFile, line)) {
+			stringstream iss_line(line);
+
+			// declare array with size 10 
+			// each slot of array represend one field in Book 
+			// book[0] - ISBN
+			// book[1] - title 
+			// book[2] - author 
+			// book[3] - publisher
+			// book[4] - quantity 
+			// book[5] - wholesale 
+			// book[6] - retail price
+			// book[7] - day
+			// book[8] - month
+			// book[9] - year 
+			string arrayString[10];
+
+			// loop through array and put each field of text file 
+			// to each slot in array
+			for (int i = 0; i < 10; i++) {
+				getline(iss_line, arrayString[i], '|');
+			}
+
+			// Start converting string to approriate int and double 
+			int quantity = stoi(arrayString[4]); // quantity of book in inventory
+			int day = stoi(arrayString[7]);  // day added to inventoty 
+			int month = stoi(arrayString[8]); // month added to inventory 
+			int year = stoi(arrayString[9]); // year added to inventoty 
+			double wholesale = atof(arrayString[5].c_str()); // whole sale cost
+			double retailPrice = atof(arrayString[6].c_str()); // retail price 
+			//cout << quantity << endl; 
+
+			// Construct BookInfo Object
+			BookInfo tempBookInfo = BookInfo(arrayString[0], arrayString[1], arrayString[2], arrayString[3],
+				quantity, wholesale, retailPrice, day, month, year);
+
+			inventoryArrayPointer[count] = tempBookInfo;
+			count++;
+		}
+	}
+
+	myFile.close();
+
+	return inventoryArrayPointer;
 }

@@ -1,15 +1,25 @@
 #ifndef RunningModule_h
 #define RunningModule_h
 
-#include<string>
-#include<iostream>
-#include<fstream>
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include "BookInfo.h"
 #include "InventoryDataBaseModule.h"
 
 namespace Utilities {
 	// Function to Correct opttion for user
 	int correctingOption(int inputNumber, int firstOptionNumber, int lastOptionNumber);
+
+	// Function to calculate how many line in file
+	// Then returning size of inventory which will be used
+	int getDataFIleSize(string fileName);
+
+	//Function to get install data file to inventory
+	BookInfo * installDataToInventory(string fileName, int fileSize);
 }
 
 class RunningModule {

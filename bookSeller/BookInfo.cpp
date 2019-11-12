@@ -153,14 +153,3 @@ void BookInfo::getBookInfo() {
 	cout << setw(20) << getBookRetailPrice(); 
 	cout << setw(35) << getFullDate() << endl;
 }
-
-void BookInfo::showBookField() {
-	cout << left << setw(60) << "Title";
-	cout << setw(25) << "Author";
-	cout << setw(25) << "Publisher";
-	cout << setw(25) << "ISBN Number";
-	cout << setw(15) << "Quantity";
-	cout << setw(15) << "Whole Sale";
-	cout << setw(20) << "Retail Price";
-	cout << setw(35) << "Date" << endl;
-}
