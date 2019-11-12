@@ -20,6 +20,7 @@ namespace Utilities {
 
 	//Function to get install data file to inventory
 	BookInfo * installDataToInventory(string fileName, int fileSize);
+ 
 }
 
 class RunningModule {

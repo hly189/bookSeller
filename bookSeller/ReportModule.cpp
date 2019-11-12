@@ -155,7 +155,7 @@ BookInfo* ReportModule::sortByPurchasedDate(InventoryDataBaseModule inventory, i
 
 			// If Next element of Inventory is greater than the minimum value, 
 			// then set minimum index equal to next element
-			if (jValue > minValue) {
+			if (jValue < minValue) {
 				minIndex = j;
 			}
 		}
@@ -192,7 +192,7 @@ void ReportModule::showSortResult(InventoryDataBaseModule inventory, int option)
 	for (int i = 0; i < currentSize; i++) {
 		tempInventory[i].getBookInfo(); 
 	}
-
+	cout << endl;
 }
 
 // Function to concatenate day, month and year

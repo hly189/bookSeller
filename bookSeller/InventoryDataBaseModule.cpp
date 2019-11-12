@@ -20,9 +20,8 @@ InventoryDataBaseModule::InventoryDataBaseModule(BookInfo list[], int size) {
 // Function to return bookList pointer
 BookInfo* InventoryDataBaseModule::getBookListPointer() {
 	// since *bookList is private, this function will return it, so it can be accessible
-	BookInfo* tempBookList = new BookInfo[getInventorySize()]; 
-	tempBookList = bookList;
-	return tempBookList; 
+
+	return bookList;
 }
 
 // Function to get size of Inventory
