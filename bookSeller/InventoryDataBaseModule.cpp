@@ -123,7 +123,6 @@ void InventoryDataBaseModule::bookLookUpByPublisherOrAuthor(string lookUpInfo, i
 	}
 }
 
-
 // Function to look up book information by day, month, year or quantity
 void  InventoryDataBaseModule::bookLoopUpByMonthDayYearQuantity(int lookupInfo, int option) {
 	// Get inventory Size

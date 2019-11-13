@@ -14,8 +14,9 @@ using namespace std;
 
 // Default constructor
 RunningModule::RunningModule() {}
-RunningModule::RunningModule(InventoryDataBaseModule currentInventory) {
+RunningModule::RunningModule(InventoryDataBaseModule currentInventory, cashierModule cashierObject) {
 	inventory = currentInventory;
+	cashier = cashierObject; 
 }
 
 //Function to show main menu and choosing sub-menu
@@ -39,6 +40,9 @@ void RunningModule::mainMenu(){
 		}
 		else if (option == 2) {
 			reportMenu(); 
+		}
+		else if (option == 3) {
+			cashierMenu(); 
 		}
 	} while (option != 4);
 }
@@ -249,6 +253,78 @@ void RunningModule::reportMenu() {
 			ReportModule::showSortResult(inventory, 2);
 		}
 	} while (option != 7); 
+}
+
+// Function to show Cashier Menu 
+void RunningModule::cashierMenu() {
+	int option;
+	do {
+		cout << "Cashier Menu" << endl;
+		cout << "1. Cashier" << endl;
+		cout << "2. Show Sale(s) Record" << endl;
+		cout << "3. Exit" << endl; 
+		cout << "Please choose option 1 - 3: ";
+		cin >> option;
+		cout << endl;
+		option = Utilities::correctingOption(option, 1, 3);
+		cin.ignore();
+
+		if (option == 1) {
+			string answer; 
+			do {
+				string information;
+				int quantity, day, month, year;
+				double saleTax;
+				int saleRecordSize = cashier.getSaleRecordArraySize(); 
+
+				cout << "Please enter Book Title or ISBN Number: "; 
+				getline(cin, information); 
+				cout << "Please enter quantity sold: "; 
+				cin >> quantity; 
+				cin.ignore(); 
+				cout << "Please enter Sale Tax: "; 
+				cin >> saleTax; 
+				cin.ignore();
+				cout << "Please enter Day Sold: "; 
+				cin >> day; 
+				cin.ignore(); 
+				cout << "Please enter Month Sold: "; 
+				cin >> month; 
+				cin.ignore(); 
+				cout << "Please enter Year Sold: "; 
+				cin >> year; 
+				cin.ignore(); 
+				cout << endl; 
+				cashier.cashierFunction(information, quantity, saleTax, day, month, year); 
+				// Compare current size with saleRecordSize, if current size is greater, 
+				// meaning new sale is added to sale array. Otherwise, it will be back 
+				// to beginning 
+				int currentIndex = cashier.getSaleRecordArraySize();
+				if (currentIndex <= saleRecordSize) {
+					cout << "No Book(s) was sold by " << information << " entered" << endl; 
+					continue; 
+				}
+				else {
+					BookSaleInfo *currentSaleRecord = cashier.getSaleArray(); 
+					cout << "Current Sale Record" << endl; 
+					cout << "Book Title: " << currentSaleRecord[currentIndex - 1].getSaleBookTitle() << endl;
+					cout << "Book Author: " << currentSaleRecord[currentIndex - 1].getBookSaleAuthor() << endl;
+					cout << "Book ISBN: " << currentSaleRecord[currentIndex - 1].getBookSaleISBN() << endl;
+					cout << "Retail Price: " << currentSaleRecord[currentIndex - 1].getBookSaleRetailPrice() << endl;
+					cout << "Sale Tax: " << saleTax << endl; 
+					cout << "Quantity Sold: " << currentSaleRecord[currentIndex - 1].getBookQuantitySold() << endl; 
+					cout << "Quantity Remaining: " << currentSaleRecord[currentIndex - 1].getBookSaleQuantityRemaining() << endl;
+				}
+				cout << endl; 
+				cout << "Do you want to continue the sale (y/n): "; 
+				getline(cin, answer); 
+
+			} while (answer == "y"); 
+		}
+		else if (option == 2) {
+			cashier.showSaleRecordSale(); 
+		}
+	} while (option != 3);
 }
 
 // Make user choose correct option which are available in menu

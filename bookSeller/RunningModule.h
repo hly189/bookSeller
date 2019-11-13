@@ -9,6 +9,7 @@
 #include <sstream>
 #include "BookInfo.h"
 #include "InventoryDataBaseModule.h"
+#include "cashierModuler.h"
 
 namespace Utilities {
 	// Function to Correct opttion for user
@@ -26,9 +27,10 @@ namespace Utilities {
 class RunningModule {
 private: 
 	InventoryDataBaseModule inventory;
+	cashierModule cashier; 
 public: 
 	RunningModule();
-	RunningModule(InventoryDataBaseModule currentInventory);
+	RunningModule(InventoryDataBaseModule currentInventory, cashierModule cashierModule);
 	// Main Menu Screen
 	void mainMenu(); 
 	// Inventory Menu Screen 

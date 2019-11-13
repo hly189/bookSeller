@@ -6,6 +6,7 @@
 #include "InventoryDataBaseModule.h"
 #include "ReportModule.h"
 #include "RunningModule.h"
+#include "cashierModuler.h"
 #include <string>
 
 
@@ -20,7 +21,8 @@ int main()
 	BookInfo * tempArray = Utilities::installDataToInventory(fileName, fileSize);
 
 	InventoryDataBaseModule inventory = InventoryDataBaseModule(tempArray, fileSize);
-	RunningModule runningMenu = RunningModule(inventory);
+	cashierModule cashierObject = cashierModule(inventory); 
+	RunningModule runningMenu = RunningModule(inventory, cashierObject);
 	runningMenu.mainMenu(); 
 
 	// free mmory 

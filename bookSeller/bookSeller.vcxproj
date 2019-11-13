@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BookInfo.h" />
+    <ClInclude Include="BookSaleInfo.h" />
+    <ClInclude Include="cashierModuler.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="InventoryDataBaseModule.h" />
     <ClInclude Include="pch.h" />
@@ -160,7 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BookInfo.cpp" />
+    <ClCompile Include="BookSaleInfo.cpp" />
     <ClCompile Include="bookSeller.cpp" />
+    <ClCompile Include="cashierModuler.cpp" />
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="InventoryDataBaseModule.cpp" />
     <ClCompile Include="pch.cpp">
